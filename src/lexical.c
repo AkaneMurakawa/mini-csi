@@ -47,10 +47,13 @@ void tokenizer(Token *token)
         {
             fprintf(stderr, "token too long.\n");
         }
+        // 赋值
+        token->str[out_pos] = current_char;
         // next
         str_line_pos++;
         out_pos++;
-        token->str[out_pos] = current_char;
+        // 数组结束标识
+        token->str[out_pos] = '\0';
 
         // + - / *
         if(current_char == ADD)
@@ -116,7 +119,10 @@ void parse_line(char *buf)
     for(;;)
     {
         tokenizer(&token);
-        if (token.kind == END_OF_LINE_TOKEN) break;
+        if (token.kind == END_OF_LINE_TOKEN)
+        {
+             break;
+        }
         else 
         {
             printf("tokenKind=%d, value=%s\n", token.kind, token.str);

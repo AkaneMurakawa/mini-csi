@@ -16,6 +16,7 @@ static void get_token(Token *token)
     else
     {
         tokenizer(token);
+        printf("tokenKind=%d, value=%s\n", token->kind, token->str);
     }
 }
 
@@ -64,7 +65,7 @@ static double parse_term()
             result = left * right;
         }
         else if (token.kind == DIV_OPERATOR_TOKEN)
-         {
+        {
             result = left / right;
         }
     }
@@ -92,10 +93,13 @@ double parse_expression()
     double right;
     double result = left;
     Token token;
-    printf("left%lf", left);
     for (;;)
     {
         get_token(&token);
+        if (token.kind == END_OF_LINE_TOKEN)
+        {
+            break;
+        }
         // 无需 + -
         if (token.kind != ADD_OPERATOR_TOKEN && token.kind != SUB_OPERATOR_TOKEN)
         {
@@ -105,12 +109,10 @@ double parse_expression()
         right = parse_term();
         if (token.kind == ADD_OPERATOR_TOKEN)
         {
-            printf("right%lf", left);
             result = left + right;
         }
         else if (token.kind == SUB_OPERATOR_TOKEN)
         {
-            printf("right%lf", left);
             result = left - right;
         }
         else

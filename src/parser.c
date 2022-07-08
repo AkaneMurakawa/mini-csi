@@ -4,6 +4,9 @@
 static Token str_look_ahead_token;
 static int   str_look_ahead_token_exists;  // 0: false 1: true
 
+/* 函数声明 */
+static double parse_expression();
+
 /* 获取token */
 static void get_token(Token *token)
 {
@@ -30,19 +33,32 @@ static void unget_token(Token *token)
     str_look_ahead_token_exists = 1;
 }
 
-/* 获取数字 */
+/* 获取值 */
 static double parse_primary_expression()
 {
     Token token;
+    double value;
     get_token(&token);
-    if(token.kind == NUMBER_TOKEN)
+    if (token.kind == NUMBER_TOKEN)
     {
         return token.value;
     }
-
-    fprintf(stderr, "syntax error, illegal expression %s.\n", token.str);
-    exit(1);
-    return 0.0;  /* make compiler happy */
+    else if (token.kind == LEFT_OPERATOR_TOKEN)
+    {
+        // 递归解析(expression)
+        value = parse_expression();
+        get_token(&token);
+        if (token.kind != RIGHT_OPERATOR_TOKEN)
+        {
+            fprintf(stderr, "syntax error, missing ')' %s.\n", token.str);
+            exit(1);
+        }
+        return value;
+    }
+    else{
+        unget_token(&token);
+        return 0.0;  /* make compiler happy */
+    }
 }
 
 /* * \/ 操作 */
@@ -88,9 +104,10 @@ term
 
 primary_expression
     :literal
+    | ( expression )
 
 */
-double parse_expression()
+static double parse_expression()
 {
     double left = parse_term();
     double right;

@@ -9,6 +9,8 @@ typedef enum {
     SUB_OPERATOR_TOKEN,             // -
     MUL_OPERATOR_TOKEN,             // *
     DIV_OPERATOR_TOKEN,             // /
+    LEFT_OPERATOR_TOKEN,            // (
+    RIGHT_OPERATOR_TOKEN,           // )
     END_OF_LINE_TOKEN               // end '\n'
 } TokenKind;
 
@@ -29,8 +31,10 @@ typedef enum {
 } LexerStatus;
 
 /* terminator */
-const char DOT       = '.',
-           ENTER     = '\n';
+const char DOT              = '.',
+           ENTER            = '\n',
+           LEFT_PAREN       = '(',
+           RIGHT_PAREN      = ')';
 
 /* symbols */
 const char ADD       = '+',

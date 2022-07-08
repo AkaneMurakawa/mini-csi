@@ -56,7 +56,7 @@ void tokenizer(Token *token)
         str_line_pos++;
         out_pos++;
 
-        // + - / *
+        // + - / * ()
         if(current_char == ADD)
         {
             token->kind = ADD_OPERATOR_TOKEN;
@@ -75,6 +75,16 @@ void tokenizer(Token *token)
         else if(current_char == DIV)
         {
             token->kind = DIV_OPERATOR_TOKEN;
+            return;
+        }
+        else if(current_char == LEFT_PAREN)
+        {
+            token->kind = LEFT_OPERATOR_TOKEN;
+            return;
+        }
+        else if(current_char == RIGHT_PAREN)
+        {
+            token->kind = RIGHT_OPERATOR_TOKEN;
             return;
         }
         // 数字

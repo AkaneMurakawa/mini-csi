@@ -13,7 +13,7 @@ int main(int argc, char **argv)
         set_line(buf);
         str_look_ahead_token_exists = 0;
         double data = parse_expression();
-        printf("=%lf\n", data);
+        printf("%g\n", data);
     }
     return 0;
 }

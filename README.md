@@ -8,6 +8,20 @@ Mini C script interpreter
 Lexical ———Token———> Parser ———AST———> Interpreter
 ```
 
+## Example
+```shell script
+Hello, C script interpreter
+>>1+2*3-4
+tokenKind=1, value=1
+tokenKind=2, value=+
+tokenKind=1, value=2
+tokenKind=4, value=*
+tokenKind=1, value=3
+tokenKind=3, value=-
+tokenKind=1, value=4
+3
+```
+
 ## Compiler and Run
 ```bash
 gcc main.c -o main

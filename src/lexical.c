@@ -21,6 +21,7 @@ void tokenizer(Token *token)
     LexerStatus status = INITIAL_STATUS;
 
     token->kind = BAD_TOKEN;
+    // 数组结束标识'\0'
     while(str_line[str_line_pos] != '\0')
     {
         current_char = str_line[str_line_pos];
@@ -49,11 +50,11 @@ void tokenizer(Token *token)
         }
         // 赋值
         token->str[out_pos] = current_char;
+        // 数组结束标识'\0'
+        token->str[out_pos+1] = '\0';
         // next
         str_line_pos++;
         out_pos++;
-        // 数组结束标识
-        token->str[out_pos] = '\0';
 
         // + - / *
         if(current_char == ADD)

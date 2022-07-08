@@ -1,7 +1,7 @@
 #ifndef LEXICAL_H
 #define LEXICAL_H
 
-/* token类型 */
+/* token种类 */
 typedef enum {
     BAD_TOKEN,                      // ?
     NUMBER_TOKEN,                   // 数字
@@ -19,6 +19,7 @@ typedef struct{
     char      str[MAX_TOKEN_SIZE];  // 字符值，最后赋值给value
 } Token;
 
+/* 数值解析状态流 */
 typedef enum {
     INITIAL_STATUS,                 // 初始状态
     IN_INI_PART_STATUS,             // 整数状态，遇到数字，整数部分

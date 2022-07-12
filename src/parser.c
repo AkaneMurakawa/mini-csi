@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "lexical.h"
 
 static Token str_look_ahead_token;

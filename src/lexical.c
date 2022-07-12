@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+
 #include "lexical.h"
 
 /* 记录输入内容 */
@@ -22,7 +23,7 @@ void tokenizer(Token *token)
 
     token->kind = BAD_TOKEN;
     // 数组结束标识'\0'
-    while(str_line[str_line_pos] != '\0')
+    while (str_line[str_line_pos] != '\0')
     {
         current_char = str_line[str_line_pos];
         // 当前非数字，非.符号，则代表解析完毕，写入token值。IN_INI_PART_STATUS代表整数，IN_FRAC_PART_STATUS代表小数
@@ -34,8 +35,9 @@ void tokenizer(Token *token)
             return;
         }
         // 跳过空格
-        if(isspace(current_char)){
-            if(current_char == ENTER)
+        if (isspace(current_char))
+        {
+            if (current_char == ENTER)
             {
                 token->kind = END_OF_LINE_TOKEN;
                 return;
@@ -57,38 +59,38 @@ void tokenizer(Token *token)
         out_pos++;
 
         // + - / * ()
-        if(current_char == ADD)
+        if (current_char == ADD)
         {
             token->kind = ADD_OPERATOR_TOKEN;
             return;
         }
-        else if(current_char == SUB)
+        else if (current_char == SUB)
         {
             token->kind = SUB_OPERATOR_TOKEN;
             return;
         }      
-        else if(current_char == MUL)
+        else if (current_char == MUL)
         {
             token->kind = MUL_OPERATOR_TOKEN;
             return;
         }      
-        else if(current_char == DIV)
+        else if (current_char == DIV)
         {
             token->kind = DIV_OPERATOR_TOKEN;
             return;
         }
-        else if(current_char == LEFT_PAREN)
+        else if (current_char == LEFT_PAREN)
         {
             token->kind = LEFT_OPERATOR_TOKEN;
             return;
         }
-        else if(current_char == RIGHT_PAREN)
+        else if (current_char == RIGHT_PAREN)
         {
             token->kind = RIGHT_OPERATOR_TOKEN;
             return;
         }
         // 数字
-        else if(isdigit(current_char))
+        else if (isdigit(current_char))
         {
             // 数字状态流
             if (status == INITIAL_STATUS)
@@ -101,7 +103,7 @@ void tokenizer(Token *token)
             }
         }
         // .
-        else if(current_char == DOT)
+        else if (current_char == DOT)
         {
             if (status == IN_INI_PART_STATUS)
             {
@@ -127,7 +129,7 @@ void parse_line(char *buf)
     set_line(buf);
 
     printf("[debug] token list:\n");
-    for(;;)
+    for (;;)
     {
         tokenizer(&token);
         if (token.kind == END_OF_LINE_TOKEN)

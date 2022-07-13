@@ -31,16 +31,16 @@ typedef enum {
 } LexerStatus;
 
 /* terminator */
-const char DOT              = '.',
-           ENTER            = '\n',
-           LEFT_PAREN       = '(',
-           RIGHT_PAREN      = ')';
+const char DOT                      = '.',
+           ENTER                    = '\n',
+           LEFT_PAREN               = '(',
+           RIGHT_PAREN              = ')';
 
 /* symbols */
-const char ADD       = '+',
-           SUB       = '-',
-           MUL       = '*',
-           DIV       = '/';
+const char ADD                      = '+',
+           SUB                      = '-',
+           MUL                      = '*',
+           DIV                      = '/';
 
 /* 设置line */
 void set_line(char *line);

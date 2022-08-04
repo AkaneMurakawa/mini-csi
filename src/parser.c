@@ -39,10 +39,21 @@ static double parse_primary_expression()
 {
     Token token;
     double value;
+    int minus_flag = 0;
+    get_token(&token);
+    if (token.kind == SUB_OPERATOR_TOKEN)
+    {
+        minus_flag = 1;
+    }
+    else
+    {
+        unget_token(&token);
+    }
+
     get_token(&token);
     if (token.kind == NUMBER_TOKEN)
     {
-        return token.value;
+        value = token.value;
     }
     else if (token.kind == LEFT_OPERATOR_TOKEN)
     {
@@ -54,12 +65,15 @@ static double parse_primary_expression()
             fprintf(stderr, "syntax error, missing ')' %s.\n", token.str);
             exit(1);
         }
-        return value;
     }
     else{
         unget_token(&token);
-        return 0.0;  /* make compiler happy */
     }
+    if (minus_flag)
+    {
+        value = -value;
+    }
+    return value;
 }
 
 /* * \/ 操作 */
@@ -94,18 +108,18 @@ static double parse_term()
 
 /*
 expression
-    : term
-    | expression ADD term
-    | expression SUB term
+    : term                              // 项
+    | expression ADD term               // 表达式 + 项
 
 term
-    : primary_expression
-    | term MUL primary_expresion
-    | term DIV primary_expresion
+    : primary_expression                // 优先表达式
+    | term MUL primary_expresion        // 项 * 优先表达式
+    | term DIV primary_expresion        // 项 / 优先表达式
 
 primary_expression
-    :literal
-    | ( expression )
+    :literal                            // 常量
+    | ( expression )                    // 表达式
+    | SUB ( expression )                // 负数
 
 */
 static double parse_expression()
